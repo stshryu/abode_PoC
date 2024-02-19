@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, Query, ValidationPipe } from '@nestjs/common';
 import { Event } from './event.schema';
 import { EventService } from './event.service';
-import { EventDto } from './event.dto';
+import { EventDto } from './dto/event.dto';
+import { FilterEventsDto } from './dto/filterEvent.dto';
 
 @Controller('events')
 export class EventController {
@@ -10,6 +11,11 @@ export class EventController {
     @Get()
     async findAll(): Promise<Event[]> {
         return this.eventService.findAll();
+    }
+    
+    @Get('/:startDate/:endDate')
+    async findByDateRange(@Param() filterEventsDto: FilterEventsDto): Promise<Event[]> {
+        return this.eventService.findByDateRange(filterEventsDto.startDate, filterEventsDto.endDate);
     }
 
     @Get(':id')

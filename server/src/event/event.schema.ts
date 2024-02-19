@@ -16,6 +16,9 @@ export class Event {
 
     @Prop([String])
     attendees: string[];
+
+    @Prop({ type: Boolean, default: false, select: false })
+    notified: boolean;
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event); 

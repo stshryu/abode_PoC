@@ -4,11 +4,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EventModule } from './event/event.module';
 import { LoggerMiddleware } from './util/middlewares/logger.middleware';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
       EventModule,
       MongooseModule.forRoot('mongodb://mongodb:27017/events'),
+      ScheduleModule.forRoot(),
+      TasksModule,
   ],
   controllers: [AppController],
   providers: [AppService],

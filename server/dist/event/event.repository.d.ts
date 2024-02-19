@@ -29,6 +29,13 @@ export declare class EventRepository {
     constructor(eventModel: Model<EventDocument>);
     findAll(): Promise<Event[]>;
     findById(id: any): Promise<Event | null>;
+    findByDateRange(startDate: string, endDate: string): Promise<(import("mongoose").Document<unknown, {}, import("mongoose").Document<unknown, {}, Event> & Event & {
+        _id: import("mongoose").Types.ObjectId;
+    }> & import("mongoose").Document<unknown, {}, Event> & Event & {
+        _id: import("mongoose").Types.ObjectId;
+    } & Required<{
+        _id: import("mongoose").Types.ObjectId;
+    }>)[]>;
     create(event: Event): Promise<Event>;
     update(id: any, event: Event): Promise<Event | null>;
     delete(id: any): Promise<void>;

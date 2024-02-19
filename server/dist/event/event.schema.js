@@ -30,6 +30,10 @@ __decorate([
     (0, mongoose_1.Prop)([String]),
     __metadata("design:type", Array)
 ], Event.prototype, "attendees", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: Boolean, default: false, select: false }),
+    __metadata("design:type", Boolean)
+], Event.prototype, "notified", void 0);
 exports.Event = Event = __decorate([
     (0, mongoose_1.Schema)({ timestamps: true })
 ], Event);

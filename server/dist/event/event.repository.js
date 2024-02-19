@@ -37,6 +37,14 @@ let EventRepository = class EventRepository {
             throw new Error("Failed to find event ${id}: ${error.message}");
         }
     }
+    async findByDateRange(startDate, endDate) {
+        try {
+            return this.eventModel.find({ eventDate: { $gte: startDate, $lte: endDate } });
+        }
+        catch (error) {
+            throw new Error("Failed to find events in the given date rate");
+        }
+    }
     async create(event) {
         try {
             const newEvent = new this.eventModel(event);

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Event } from './event.schema';
 import { EventRepository } from './event.repository';
-import { EventDto } from './event.dto';
+import { EventDto } from './dto/event.dto';
 
 @Injectable()
 export class EventService {
@@ -12,6 +12,14 @@ export class EventService {
             return await this.eventRepository.findAll();
         } catch (error) {
             throw new Error("Failed to fetch events: ${error.message}");
+        }
+    }
+
+    async findByDateRange(startDate: string, endDate: string) {
+        try {
+            return this.eventRepository.findByDateRange(startDate, endDate);
+        } catch (error) {
+            throw new Error("Failed to fetch event in date range");
         }
     }
 

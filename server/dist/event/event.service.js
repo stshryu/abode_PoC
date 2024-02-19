@@ -24,6 +24,14 @@ let EventService = class EventService {
             throw new Error("Failed to fetch events: ${error.message}");
         }
     }
+    async findByDateRange(startDate, endDate) {
+        try {
+            return this.eventRepository.findByDateRange(startDate, endDate);
+        }
+        catch (error) {
+            throw new Error("Failed to fetch event in date range");
+        }
+    }
     async findById(id) {
         try {
             return this.eventRepository.findById(id);

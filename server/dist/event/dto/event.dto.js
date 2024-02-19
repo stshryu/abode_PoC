@@ -39,4 +39,8 @@ __decorate([
     (0, class_validator_1.IsEmail)({}, { each: true }),
     __metadata("design:type", Array)
 ], EventDto.prototype, "attendees", void 0);
+__decorate([
+    (0, class_transformer_1.Exclude)(),
+    __metadata("design:type", Boolean)
+], EventDto.prototype, "notified", void 0);
 //# sourceMappingURL=event.dto.js.map

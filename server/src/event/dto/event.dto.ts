@@ -1,5 +1,5 @@
 import { IsDate, IsString, IsArray, IsNotEmpty, ArrayNotEmpty, IsOptional, IsEmail, MinDate } from 'class-validator';
-import { Transform } from 'class-transformer';
+import { Exclude, Transform } from 'class-transformer';
 
 export class EventDto {
     @IsString()
@@ -21,4 +21,7 @@ export class EventDto {
     @IsArray()
     @IsEmail({}, { each: true })
     attendees: string[]
+
+    @Exclude()
+    notified: boolean;
 }

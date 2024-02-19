@@ -23,6 +23,14 @@ export class EventRepository {
         }
     }
 
+    async findByDateRange(startDate: string, endDate: string) {
+        try {
+            return this.eventModel.find({ eventDate: { $gte: startDate, $lte: endDate }});
+        } catch (error) {
+            throw new Error("Failed to find events in the given date rate");
+        }
+    }
+
     async create(event: Event): Promise<Event> {
         try {
             const newEvent = new this.eventModel(event);

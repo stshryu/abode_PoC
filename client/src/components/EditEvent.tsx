@@ -6,7 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Event } from './EventInterface';
 import { toast } from 'react-toastify';
 
-import { Box, Typography, IconButton, TextField, Button, Grid, Paper, FormLabel } from '@mui/material';
+import { Typography, IconButton, TextField, Button, Grid, Paper, FormLabel } from '@mui/material';
 import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
 
 const EditEvent:React.FC = () => {
@@ -104,15 +104,15 @@ const EditEvent:React.FC = () => {
             if (id) {
                 const response = axios_server.put(`/events/${id}`, event);
                 toast.promise(response, {
-                    pending: 'Saving Event ...',
-                    success: 'Saved!',
+                    pending: 'Updating Event ...',
+                    success: 'Updated!',
                     error: 'Something went wrong while saving event.',
                 });
             } else {
                 const response = axios_server.post('/events', event);
                 toast.promise(response, {
-                    pending: 'Updating Event ...',
-                    success: 'Updated!',
+                    pending: 'Creating Event ...',
+                    success: 'Created!',
                     error: 'Something went wrong while updating event.',
                 });
             }

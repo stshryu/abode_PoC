@@ -29,6 +29,7 @@ export declare class Event {
     description: string;
     eventDate: Date;
     attendees: string[];
+    notified: boolean;
 }
 export declare const EventSchema: import("mongoose").Schema<Event, import("mongoose").Model<Event, any, any, any, import("mongoose").Document<unknown, any, Event> & Event & {
     _id: import("mongoose").Types.ObjectId;

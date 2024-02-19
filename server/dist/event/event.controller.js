@@ -15,13 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventController = void 0;
 const common_1 = require("@nestjs/common");
 const event_service_1 = require("./event.service");
-const event_dto_1 = require("./event.dto");
+const event_dto_1 = require("./dto/event.dto");
+const filterEvent_dto_1 = require("./dto/filterEvent.dto");
 let EventController = class EventController {
     constructor(eventService) {
         this.eventService = eventService;
     }
     async findAll() {
         return this.eventService.findAll();
+    }
+    async findByDateRange(filterEventsDto) {
+        return this.eventService.findByDateRange(filterEventsDto.startDate, filterEventsDto.endDate);
     }
     async findById(id) {
         return this.eventService.findById(id);
@@ -43,6 +47,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], EventController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)('/:startDate/:endDate'),
+    __param(0, (0, common_1.Param)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [filterEvent_dto_1.FilterEventsDto]),
+    __metadata("design:returntype", Promise)
+], EventController.prototype, "findByDateRange", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
