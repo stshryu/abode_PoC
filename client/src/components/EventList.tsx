@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import axios_server from '../util/axios_server';
 import { Event } from './EventInterface';
+import { toast } from 'react-toastify';
 
 import { Link, Container, ListItem, Table, TableBody, TableCell, TableContainer, Button, TableHead, TableRow, Paper } from '@mui/material';
 
@@ -46,6 +47,20 @@ const EventList = () => {
         setAscendingOrder(!ascendingOrder);
     };
 
+    const deleteEvent = async (event: Event) => {
+        try {
+            const response = axios_server.delete(`/events/${event._id}`);
+            toast.promise(response, {
+                pending: 'Deleting Event ...',
+                success: 'Deleted Event.',
+                error: 'Something went wrong with deleting the event.',
+            });
+        } catch(error) {
+            toast.error('Failed to delete event');
+            console.error('Error fetching events:', error);
+        }
+    }
+
     return (
         <TableContainer component={Paper}>
             <Table>
@@ -58,6 +73,8 @@ const EventList = () => {
                                 { ascendingOrder ? 'Sort Ascending' : 'Sort Descending' }
                             </Button>
                         </TableCell>
+                        <TableCell> {/* formatting :) */}
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -67,6 +84,11 @@ const EventList = () => {
                             <TableCell>{formatDate(event)}</TableCell>
                             <TableCell>
                                 <Link component={RouterLink} to={`/events/edit/${event._id}`}>Edit</Link>
+                            </TableCell>
+                            <TableCell>
+                                <Button variant="outlined" onClick={() => deleteEvent(event)}>
+                                    Delete
+                                </Button>
                             </TableCell>
                         </TableRow>
                     ))}

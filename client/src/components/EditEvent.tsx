@@ -6,7 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Event } from './EventInterface';
 import { toast } from 'react-toastify';
 
-import { Typography, IconButton, TextField, Button, Grid, Paper, FormLabel } from '@mui/material';
+import { Box, Typography, IconButton, TextField, Button, Grid, Paper, FormLabel } from '@mui/material';
 import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
 
 const EditEvent:React.FC = () => {
@@ -76,6 +76,21 @@ const EditEvent:React.FC = () => {
     const handleDateChange = (selected_date: Date) => {
         const newDate = selected_date;
         setDate(newDate);
+    }
+
+    const handleDeleteEvent = (event: Event) => {
+        try {
+            const response = axios_server.delete(`/events/${id}`);
+            toast.promise(response, {
+                pending: 'Deleting Event ...',
+                success: 'Deleted Event.',
+                error: 'Something went wrong while deleting the event.',
+            });
+        } catch(error) {
+            toast.error('Failed to delete event');
+            console.error('Error deleting event:', error);
+        }
+        navigate('/events');
     }
 
     const handleSubmit = async (e: FormEvent) => {
@@ -175,10 +190,24 @@ const EditEvent:React.FC = () => {
                     </Grid>   
                 ))}
 
-                <Grid item xs={12}>
-                    <Button type="submit" variant="contained" color="primary">
-                        { id ? 'Update Event' : 'Add Event' }
-                    </Button>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                    </Grid>
+                    <Grid item xs={12}>
+                    </Grid>
+                </Grid>
+
+                <Grid container justifyContent='space-between'>
+                    <Grid item xs={8}>
+                        <Button type="submit" variant="contained" color="primary">
+                            { id ? 'Update Event' : 'Add Event' }
+                        </Button>
+                    </Grid>
+                    <Grid item xs>
+                        <Button variant="contained" color="warning" onClick={(e) => handleDeleteEvent(event)}>
+                            Delete Event
+                        </Button>
+                    </Grid>
                 </Grid>
             </form>
         </Paper>
