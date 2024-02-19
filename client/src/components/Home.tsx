@@ -1,10 +1,34 @@
 import React from 'react';
+import { Container, Typography, TableBody, Table, TableHead, TableRow, TableCell, TableContainer, Paper } from '@mui/material';
+import EventList from './EventList';
 
-const Home = () => {
+const Home: React.FC  = () => {
     return (
-        <div>
-            <h1>Root</h1>
-        </div>
+        <Container maxWidth="lg">
+            <Typography variant="h3">
+                Dashboard
+            </Typography>
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Upcoming Events</TableCell>
+                            <TableCell>Expired Events</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell style={{ verticalAlign: 'top' }}>
+                                <EventList {...{ length: 7 }} />
+                            </TableCell>
+                            <TableCell style={{ verticalAlign: 'top'}}>
+                                <EventList {...{ length: -30 }}/>
+                            </TableCell>
+                        </TableRow>
+                    </TableBody> 
+                </Table>
+            </TableContainer>
+        </Container>
     );
 }
 

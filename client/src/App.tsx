@@ -19,13 +19,13 @@ import EventList from './components/EventList';
 
 export default function App() {
     return (
-        <Container maxWidth="sm">
+        <Container maxWidth="lg">
             <ToastContainer />
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Layout />}>
                         <Route index element={<Home />} />
-                        <Route path="events" element={<EventList />} />
+                        <Route path="events" element={<EventList {...{ length: 30 }} />}/> 
                         <Route path="events/add/" element={<EditEvent />} />
                         <Route path="events/edit/:id" element={<EditEvent />} />
                     </Route>
@@ -34,6 +34,7 @@ export default function App() {
         </ Container>
     );
 }
+
 
 const root = ReactDom.createRoot(document.getElementById('root')!);
 root.render(<App />)

@@ -6,14 +6,27 @@ import { toast } from 'react-toastify';
 
 import { Link, Container, ListItem, Table, TableBody, TableCell, TableContainer, Button, TableHead, TableRow, Paper } from '@mui/material';
 
-const EventList = () => {
+interface DateRange { 
+    length: number;
+}
+
+const EventList: React.FC<DateRange> = (dateRange) => {
+    const { length } = dateRange; 
     const [events, setEvents] = useState<Event[]>([]);
     const [ascendingOrder, setAscendingOrder] = useState(true);
 
     useEffect(() => {
+        const currentDate: Date = new Date();
+        const endDate: Date = new Date();
+        endDate.setDate(endDate.getDate() + length);
+
         const fetchEvents = async () => {
             try {
-                const response = await axios_server.get("/events");
+                const request_string = 
+                    length > 0 
+                    ? `/events/${currentDate.toISOString()}/${endDate.toISOString()}`
+                    : `/events/${endDate.toISOString()}/${currentDate.toISOString()}`
+                const response = await axios_server.get(request_string);
                 setEvents(response.data);
             } catch (error) {
                 console.error('Error fetching events:', error);
@@ -95,7 +108,6 @@ const EventList = () => {
                 </TableBody>
             </Table>
         </TableContainer>
-        
     );
 } 
 
