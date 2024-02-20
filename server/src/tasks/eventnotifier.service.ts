@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { EventNotify } from './../event/event.notify';
 import { EmailService } from './../util/email_service/email.service';
+import { QueueService } from './../util/bullqueue/queue.service';
 
 @Injectable()
 export class EventNotifierService {
@@ -10,6 +11,7 @@ export class EventNotifierService {
     constructor(
         private readonly emailService: EmailService,
         private readonly eventNotify: EventNotify,
+        private readonly queueService: QueueService,
     ) {}
 
     running:boolean = false;
@@ -21,8 +23,10 @@ export class EventNotifierService {
             this.running = true;
             this.logger.debug('Called when the current second is 30');
             const notifiableEvents = await this.eventNotify.findNotifiableEvents();
-            console.log(notifiableEvents);
             this.logger.debug(`List of notifiable events: ${notifiableEvents}`);
+            notifiableEvents.forEach((event) => {
+                this.queueService.addEventToQueue(event);
+            });
             //this.emailService.sendEmail(...); Actual email service should get installed on prod
             this.running = false;
         }

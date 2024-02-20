@@ -6,6 +6,7 @@ import { EventModule } from './event/event.module';
 import { LoggerMiddleware } from './util/middlewares/logger.middleware';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TasksModule } from './tasks/tasks.module';
+import { BullConfigModule } from './util/bullqueue/bull.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { TasksModule } from './tasks/tasks.module';
       MongooseModule.forRoot('mongodb://mongodb:27017/events'),
       ScheduleModule.forRoot(),
       TasksModule,
+      BullConfigModule,
   ],
   controllers: [AppController],
   providers: [AppService],

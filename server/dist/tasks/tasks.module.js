@@ -11,12 +11,13 @@ const common_1 = require("@nestjs/common");
 const eventnotifier_service_1 = require("./eventnotifier.service");
 const event_module_1 = require("./../event/event.module");
 const email_module_1 = require("./../util/email_service/email.module");
+const bull_module_1 = require("./../util/bullqueue/bull.module");
 let TasksModule = class TasksModule {
 };
 exports.TasksModule = TasksModule;
 exports.TasksModule = TasksModule = __decorate([
     (0, common_1.Module)({
-        imports: [event_module_1.EventModule, email_module_1.EmailModule],
+        imports: [event_module_1.EventModule, email_module_1.EmailModule, bull_module_1.BullConfigModule],
         providers: [eventnotifier_service_1.EventNotifierService],
     })
 ], TasksModule);

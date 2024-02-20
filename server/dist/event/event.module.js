@@ -22,7 +22,7 @@ exports.EventModule = EventModule = __decorate([
         imports: [mongoose_1.MongooseModule.forFeature([{ name: event_schema_1.Event.name, schema: event_schema_1.EventSchema }])],
         controllers: [event_controller_1.EventController],
         providers: [event_service_1.EventService, event_repository_1.EventRepository, event_notify_1.EventNotify],
-        exports: [event_notify_1.EventNotify]
+        exports: [event_notify_1.EventNotify, event_service_1.EventService]
     })
 ], EventModule);
 //# sourceMappingURL=event.module.js.map

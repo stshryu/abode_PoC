@@ -15,6 +15,7 @@ const event_module_1 = require("./event/event.module");
 const logger_middleware_1 = require("./util/middlewares/logger.middleware");
 const schedule_1 = require("@nestjs/schedule");
 const tasks_module_1 = require("./tasks/tasks.module");
+const bull_module_1 = require("./util/bullqueue/bull.module");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(logger_middleware_1.LoggerMiddleware).forRoutes('*');
@@ -28,6 +29,7 @@ exports.AppModule = AppModule = __decorate([
             mongoose_1.MongooseModule.forRoot('mongodb://mongodb:27017/events'),
             schedule_1.ScheduleModule.forRoot(),
             tasks_module_1.TasksModule,
+            bull_module_1.BullConfigModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

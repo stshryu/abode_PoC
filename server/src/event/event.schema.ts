@@ -5,6 +5,8 @@ export type EventDocument = HydratedDocument<Event>;
 
 @Schema({ timestamps: true })
 export class Event {
+    _id: string;
+
     @Prop()
     name: string;
 

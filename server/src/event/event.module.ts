@@ -10,7 +10,7 @@ import { EventNotify } from './event.notify';
     imports : [MongooseModule.forFeature([{ name: Event.name, schema: EventSchema }])],
     controllers: [EventController],
     providers: [EventService, EventRepository, EventNotify],
-    exports: [EventNotify]
+    exports: [EventNotify, EventService]
 })
 
 export class EventModule {}

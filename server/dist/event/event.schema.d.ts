@@ -25,14 +25,15 @@
 import { HydratedDocument } from 'mongoose';
 export type EventDocument = HydratedDocument<Event>;
 export declare class Event {
+    _id: string;
     name: string;
     description: string;
     eventDate: Date;
     attendees: string[];
     notified: boolean;
 }
-export declare const EventSchema: import("mongoose").Schema<Event, import("mongoose").Model<Event, any, any, any, import("mongoose").Document<unknown, any, Event> & Event & {
-    _id: import("mongoose").Types.ObjectId;
-}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Event, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Event>> & import("mongoose").FlatRecord<Event> & {
-    _id: import("mongoose").Types.ObjectId;
-}>;
+export declare const EventSchema: import("mongoose").Schema<Event, import("mongoose").Model<Event, any, any, any, import("mongoose").Document<unknown, any, Event> & Event & Required<{
+    _id: string;
+}>, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Event, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Event>> & import("mongoose").FlatRecord<Event> & Required<{
+    _id: string;
+}>>;

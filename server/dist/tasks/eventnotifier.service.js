@@ -15,10 +15,12 @@ const common_1 = require("@nestjs/common");
 const schedule_1 = require("@nestjs/schedule");
 const event_notify_1 = require("./../event/event.notify");
 const email_service_1 = require("./../util/email_service/email.service");
+const queue_service_1 = require("./../util/bullqueue/queue.service");
 let EventNotifierService = EventNotifierService_1 = class EventNotifierService {
-    constructor(emailService, eventNotify) {
+    constructor(emailService, eventNotify, queueService) {
         this.emailService = emailService;
         this.eventNotify = eventNotify;
+        this.queueService = queueService;
         this.logger = new common_1.Logger(EventNotifierService_1.name);
         this.running = false;
     }
@@ -27,8 +29,10 @@ let EventNotifierService = EventNotifierService_1 = class EventNotifierService {
             this.running = true;
             this.logger.debug('Called when the current second is 30');
             const notifiableEvents = await this.eventNotify.findNotifiableEvents();
-            console.log(notifiableEvents);
             this.logger.debug(`List of notifiable events: ${notifiableEvents}`);
+            notifiableEvents.forEach((event) => {
+                this.queueService.addEventToQueue(event);
+            });
             this.running = false;
         }
     }
@@ -43,6 +47,7 @@ __decorate([
 exports.EventNotifierService = EventNotifierService = EventNotifierService_1 = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [email_service_1.EmailService,
-        event_notify_1.EventNotify])
+        event_notify_1.EventNotify,
+        queue_service_1.QueueService])
 ], EventNotifierService);
 //# sourceMappingURL=eventnotifier.service.js.map

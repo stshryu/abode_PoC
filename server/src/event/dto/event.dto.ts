@@ -24,4 +24,6 @@ export class EventDto {
 
     @Exclude()
     notified: boolean;
+
+    _id: string
 }

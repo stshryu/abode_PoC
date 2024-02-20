@@ -23,7 +23,7 @@ export class EventService {
         }
     }
 
-    async findById(id: number): Promise<Event | null> {
+    async findById(id: string): Promise<Event | null> {
         try {
             return this.eventRepository.findById(id);
         } catch (error) {
@@ -39,7 +39,7 @@ export class EventService {
         }
     }
 
-    async update(id: number, eventDto: EventDto): Promise<Event | null> {
+    async update(id: string, eventDto: EventDto): Promise<Event | null> {
         try {
             return this.eventRepository.update(id, eventDto);
         } catch (error) {
@@ -47,7 +47,7 @@ export class EventService {
         }
     }
 
-    async delete(id: number): Promise<void> {
+    async delete(id: string): Promise<void> {
         try {
             return this.eventRepository.delete(id);
         } catch (error) {

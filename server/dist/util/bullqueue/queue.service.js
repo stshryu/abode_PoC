@@ -8,26 +8,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var EventNotify_1;
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var QueueService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EventNotify = void 0;
+exports.QueueService = void 0;
 const common_1 = require("@nestjs/common");
-const event_repository_1 = require("./event.repository");
-let EventNotify = EventNotify_1 = class EventNotify {
-    constructor(eventRepository) {
-        this.eventRepository = eventRepository;
-        this.logger = new common_1.Logger(EventNotify_1.name);
+const bull_1 = require("@nestjs/bull");
+let QueueService = QueueService_1 = class QueueService {
+    constructor(eventsQueue) {
+        this.eventsQueue = eventsQueue;
+        this.logger = new common_1.Logger(QueueService_1.name);
     }
-    async findNotifiableEvents() {
-        const startDate = new Date();
-        const endDate = new Date(startDate.getTime() + 30 * 60000);
-        this.logger.log(`Finding notifiable events within 30 minutes of ${startDate}`);
-        return this.eventRepository.findByDateRange(startDate.toISOString(), endDate.toISOString(), true);
+    async addEventToQueue(event) {
+        this.logger.log(`Queuing job to disable notifications for event: ${event}`);
+        await this.eventsQueue.add('deactivateNotify', event);
     }
 };
-exports.EventNotify = EventNotify;
-exports.EventNotify = EventNotify = EventNotify_1 = __decorate([
+exports.QueueService = QueueService;
+exports.QueueService = QueueService = QueueService_1 = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [event_repository_1.EventRepository])
-], EventNotify);
-//# sourceMappingURL=event.notify.js.map
+    __param(0, (0, bull_1.InjectQueue)('events')),
+    __metadata("design:paramtypes", [Object])
+], QueueService);
+//# sourceMappingURL=queue.service.js.map

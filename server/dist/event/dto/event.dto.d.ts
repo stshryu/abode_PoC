@@ -4,4 +4,5 @@ export declare class EventDto {
     eventDate: Date;
     attendees: string[];
     notified: boolean;
+    _id: string;
 }

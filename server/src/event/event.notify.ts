@@ -12,6 +12,6 @@ export class EventNotify{
         const endDate = new Date(startDate.getTime() + 30 * 60000); // 30M window
 
         this.logger.log(`Finding notifiable events within 30 minutes of ${startDate}`);
-        return this.eventRepository.findByDateRange(startDate.toISOString(), endDate.toISOString());
+        return this.eventRepository.findByDateRange(startDate.toISOString(), endDate.toISOString(), true);
     } 
 }
