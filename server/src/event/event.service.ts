@@ -11,7 +11,7 @@ export class EventService {
         try {
             return await this.eventRepository.findAll();
         } catch (error) {
-            throw new Error("Failed to fetch events: ${error.message}");
+            throw new Error(`Failed to fetch events: ${error.message}`);
         }
     }
 
@@ -19,7 +19,7 @@ export class EventService {
         try {
             return this.eventRepository.findByDateRange(startDate, endDate);
         } catch (error) {
-            throw new Error("Failed to fetch event in date range");
+            throw new Error(`Failed to fetch event in date range`);
         }
     }
 
@@ -27,7 +27,7 @@ export class EventService {
         try {
             return this.eventRepository.findById(id);
         } catch (error) {
-            throw new Error("Failed to fetch event ${id}: ${error.message}");
+            throw new Error(`Failed to fetch event ${id}: ${error.message}`);
         }
     }
 
@@ -35,7 +35,7 @@ export class EventService {
         try {
             return this.eventRepository.create(eventDto);
         } catch (error) {
-            throw new Error("Failed to create event: ${error.message}");
+            throw new Error(`Failed to create event: ${error.message}`);
         }
     }
 
@@ -43,7 +43,7 @@ export class EventService {
         try {
             return this.eventRepository.update(id, eventDto);
         } catch (error) {
-            throw new Error("Failed to update event ${id}: ${error.message}");
+            throw new Error(`Failed to update event ${id}: ${error.message}`);
         }
     }
 
@@ -51,7 +51,15 @@ export class EventService {
         try {
             return this.eventRepository.delete(id);
         } catch (error) {
-            throw new Error("Failed to delete event ${id}: ${error.message}");
+            throw new Error(`Failed to delete event ${id}: ${error.message}`);
+        }
+    }
+
+    async deleteAll(): Promise<void> {
+        try {
+            return this.eventRepository.deleteAll();
+        } catch (error) {
+            throw new Error(`Failed to delete all events`);
         }
     }
 }

@@ -11,4 +11,6 @@ export declare class EventController {
     create(eventDto: EventDto): Promise<Event>;
     update(id: any, eventDto: EventDto): Promise<Event | null>;
     delete(id: any): Promise<void>;
+    create_test_data(): Promise<Event[]>;
+    delete_all_data(): Promise<void>;
 }

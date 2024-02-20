@@ -25,7 +25,7 @@ export default function App() {
                 <Routes>
                     <Route path="/" element={<Layout />}>
                         <Route index element={<Home />} />
-                        <Route path="events" element={<EventList {...{ length: 30 }} />}/> 
+                        <Route path="events" element={<EventList {...{ length: 30, getAll: true }} />}/> 
                         <Route path="events/add/" element={<EditEvent />} />
                         <Route path="events/edit/:id" element={<EditEvent />} />
                     </Route>

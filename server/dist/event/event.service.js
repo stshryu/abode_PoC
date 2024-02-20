@@ -21,7 +21,7 @@ let EventService = class EventService {
             return await this.eventRepository.findAll();
         }
         catch (error) {
-            throw new Error("Failed to fetch events: ${error.message}");
+            throw new Error(`Failed to fetch events: ${error.message}`);
         }
     }
     async findByDateRange(startDate, endDate) {
@@ -29,7 +29,7 @@ let EventService = class EventService {
             return this.eventRepository.findByDateRange(startDate, endDate);
         }
         catch (error) {
-            throw new Error("Failed to fetch event in date range");
+            throw new Error(`Failed to fetch event in date range`);
         }
     }
     async findById(id) {
@@ -37,7 +37,7 @@ let EventService = class EventService {
             return this.eventRepository.findById(id);
         }
         catch (error) {
-            throw new Error("Failed to fetch event ${id}: ${error.message}");
+            throw new Error(`Failed to fetch event ${id}: ${error.message}`);
         }
     }
     async create(eventDto) {
@@ -45,7 +45,7 @@ let EventService = class EventService {
             return this.eventRepository.create(eventDto);
         }
         catch (error) {
-            throw new Error("Failed to create event: ${error.message}");
+            throw new Error(`Failed to create event: ${error.message}`);
         }
     }
     async update(id, eventDto) {
@@ -53,7 +53,7 @@ let EventService = class EventService {
             return this.eventRepository.update(id, eventDto);
         }
         catch (error) {
-            throw new Error("Failed to update event ${id}: ${error.message}");
+            throw new Error(`Failed to update event ${id}: ${error.message}`);
         }
     }
     async delete(id) {
@@ -61,7 +61,15 @@ let EventService = class EventService {
             return this.eventRepository.delete(id);
         }
         catch (error) {
-            throw new Error("Failed to delete event ${id}: ${error.message}");
+            throw new Error(`Failed to delete event ${id}: ${error.message}`);
+        }
+    }
+    async deleteAll() {
+        try {
+            return this.eventRepository.deleteAll();
+        }
+        catch (error) {
+            throw new Error(`Failed to delete all events`);
         }
     }
 };

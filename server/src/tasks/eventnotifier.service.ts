@@ -24,10 +24,10 @@ export class EventNotifierService {
             this.logger.debug('Called when the current second is 30');
             const notifiableEvents = await this.eventNotify.findNotifiableEvents();
             this.logger.debug(`List of notifiable events: ${notifiableEvents}`);
+            //this.emailService.sendEmail(...); Actual email service should get installed on prod
             notifiableEvents.forEach((event) => {
                 this.queueService.addEventToQueue(event);
             });
-            //this.emailService.sendEmail(...); Actual email service should get installed on prod
             this.running = false;
         }
     }

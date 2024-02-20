@@ -12,7 +12,7 @@ const Layout = () => {
                         </Link> 
                     </ListItem>
                     <ListItem>
-                        <Link component={RouterLink} variant="body2" to="/events" underline="none" state={{ length: 30 }}>
+                        <Link component={RouterLink} variant="body2" to="/events" underline="none" state={{ length: 30, getAll: true }}>
                             Events 
                         </Link>
                     </ListItem>

@@ -33,4 +33,5 @@ export declare class EventRepository {
     create(event: Event): Promise<Event>;
     update(id: any, event: Event): Promise<Event | null>;
     delete(id: any): Promise<void>;
+    deleteAll(): Promise<void>;
 }

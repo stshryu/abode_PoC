@@ -8,10 +8,11 @@ import { Link, Container, ListItem, Table, TableBody, TableCell, TableContainer,
 
 interface DateRange { 
     length: number;
+    getAll: boolean;
 }
 
 const EventList: React.FC<DateRange> = (dateRange) => {
-    const { length } = dateRange; 
+    const { length, getAll } = dateRange; 
     const [events, setEvents] = useState<Event[]>([]);
     const [ascendingOrder, setAscendingOrder] = useState(true);
 
@@ -22,12 +23,17 @@ const EventList: React.FC<DateRange> = (dateRange) => {
 
         const fetchEvents = async () => {
             try {
-                const request_string = 
-                    length > 0 
-                    ? `/events/${currentDate.toISOString()}/${endDate.toISOString()}`
-                    : `/events/${endDate.toISOString()}/${currentDate.toISOString()}`
-                const response = await axios_server.get(request_string);
-                setEvents(response.data);
+                if (getAll) {
+                    const response = await axios_server.get('/events');
+                    setEvents(response.data);
+                } else {
+                    const request_string = 
+                        length > 0 
+                        ? `/events/${currentDate.toISOString()}/${endDate.toISOString()}`
+                        : `/events/${endDate.toISOString()}/${currentDate.toISOString()}`
+                    const response = await axios_server.get(request_string);
+                    setEvents(response.data);
+                }
             } catch (error) {
                 console.error('Error fetching events:', error);
             }

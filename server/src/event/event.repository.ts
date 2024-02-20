@@ -11,7 +11,7 @@ export class EventRepository {
         try {
             return this.eventModel.find().exec();
         } catch (error) {
-            throw new Error("Failed to fetch events: ${error.message}");
+            throw new Error(`Failed to fetch events: ${error.message}`);
         }
     }
 
@@ -19,7 +19,7 @@ export class EventRepository {
         try {
             return this.eventModel.findById(id).exec();
         } catch (error) {
-            throw new Error("Failed to find event ${id}: ${error.message}");
+            throw new Error(`Failed to find event ${id}: ${error.message}`);
         }
     }
 
@@ -44,7 +44,7 @@ export class EventRepository {
             const newEvent = new this.eventModel(event);
             return newEvent.save();
         } catch (error) {
-            throw new Error("Failed to create event: ${error.message}");
+            throw new Error(`Failed to create event: ${error.message}`);
         }
     }
 
@@ -52,7 +52,7 @@ export class EventRepository {
         try {
             return this.eventModel.findByIdAndUpdate(id, event, { new: true }).exec();
         } catch (error) {
-            throw new Error("Failed to update event: ${error.message}");
+            throw new Error(`Failed to update event: ${error.message}`);
         }
     }
 
@@ -60,7 +60,15 @@ export class EventRepository {
         try {
             await this.eventModel.findByIdAndDelete(id).exec();
         } catch (error) {
-            throw new Error("Failed to delete event ${id}: ${error.message}");
+            throw new Error(`Failed to delete event ${id}: ${error.message}`);
+        }
+    }
+
+    async deleteAll(): Promise<void> {
+        try { 
+            await this.eventModel.deleteMany().exec();
+        } catch (error) {
+            throw new Error(`Failed to delete all events: ${error.message}`);
         }
     }
 }

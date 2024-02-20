@@ -10,4 +10,5 @@ export declare class EventService {
     create(eventDto: EventDto): Promise<Event>;
     update(id: string, eventDto: EventDto): Promise<Event | null>;
     delete(id: string): Promise<void>;
+    deleteAll(): Promise<void>;
 }

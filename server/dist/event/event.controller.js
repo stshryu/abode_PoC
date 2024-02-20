@@ -39,6 +39,54 @@ let EventController = class EventController {
     async delete(id) {
         return this.eventService.delete(id);
     }
+    async create_test_data() {
+        const arr = [
+            {
+                _id: "65d43e9e82f20555c3027d19",
+                attendees: [],
+                description: "Create an event 10 days from now with no attendees",
+                eventDate: new Date(Date.now() + (1000 * 864000)),
+                name: "Event in 10 Days",
+                notified: false,
+                __v: 0
+            },
+            {
+                _id: "65d43ea92ce4cbf7948924d6",
+                attendees: ["email@email1.com", "email2@email2.com"],
+                description: "Create an event in 1 day with 2 attendees",
+                eventDate: new Date(Date.now() + (100 * 864000)),
+                name: "Event in 1 Day",
+                notified: false,
+                __v: 0
+            },
+            {
+                _id: "65d43eae6e0da5f5590677e4",
+                attendees: ["test@test.com"],
+                description: "Create an event that will occur within 30 minutes",
+                eventDate: new Date(Date.now() + (1500 * 1000)),
+                name: "Event in 25m",
+                notified: false,
+                __v: 0
+            },
+            {
+                _id: "65d43ebc1da962aaa631cdcb",
+                attendees: ["test@test.com"],
+                description: "Create a event that will expire in the next 30 seconds",
+                eventDate: new Date(Date.now() + 30000),
+                name: "Event in 30s",
+                notified: false,
+                __v: 0
+            }
+        ];
+        let responseArr = [];
+        arr.forEach((eventDto) => {
+            responseArr.push(this.eventService.create(eventDto));
+        });
+        return responseArr;
+    }
+    async delete_all_data() {
+        return this.eventService.deleteAll();
+    }
 };
 exports.EventController = EventController;
 __decorate([
@@ -83,6 +131,18 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], EventController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Post)('/testdata'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], EventController.prototype, "create_test_data", null);
+__decorate([
+    (0, common_1.Post)('/deleteallevents'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], EventController.prototype, "delete_all_data", null);
 exports.EventController = EventController = __decorate([
     (0, common_1.Controller)('events'),
     __metadata("design:paramtypes", [event_service_1.EventService])

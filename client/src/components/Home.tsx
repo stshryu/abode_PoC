@@ -19,10 +19,10 @@ const Home: React.FC  = () => {
                     <TableBody>
                         <TableRow>
                             <TableCell style={{ verticalAlign: 'top' }}>
-                                <EventList {...{ length: 7 }} />
+                                <EventList {...{ length: 7, getAll: false }} />
                             </TableCell>
                             <TableCell style={{ verticalAlign: 'top'}}>
-                                <EventList {...{ length: -30 }}/>
+                                <EventList {...{ length: -30, getAll: false }}/>
                             </TableCell>
                         </TableRow>
                     </TableBody> 
