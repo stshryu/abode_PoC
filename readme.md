@@ -115,6 +115,10 @@ For example, when we mock our service to test our controller we will instead inj
 
 Decoupling data from MongoDB commits using messaging queues would allow for greater resiliency in the code. We can re-attempt failed jobs or even have a notification service setup that sends an email or SMS notification if a job fails. There's a small demo in this project about the queues (decoupling toggling the notified flag in MongoDB) but more logic could be added to not only listen for failed jobs but also to completely decouple the commits to the DB from our services.
 
+## Migrating to the Cloud
+
+Decoupling all the moving parts in our nest server could add the benefit of potentially easing a transition to the cloud. Using AWS as an example, we can use SNS and SQS to manage our workers and split up the event creation process and event store process into separate workers. Using DBMS and other AWS tools would help move everything to a non-managed serverless solution (like DocumentDB) that will help costs for running as well as horizontal and vertical scaling.
+
 ## Frontend Design Changes
 
 If I had more time I probably would have gone harder into nesting components. As it is the edit and event lists logic is a little bulky. Having an event component that then renders within our event lists and the edit events page might have been a better way to help clean up the project. There is some nesting and dynamic properties that renders two different versions of the event list (one to show upcoming, the other to show expired) but even more nesting could have happened.
