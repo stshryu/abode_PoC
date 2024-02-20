@@ -4,7 +4,7 @@ With docker and docker-compose installed run:
 
 `docker-compose up --build`
 
-This should create 3 containers:
+This should create 4 containers:
 
 1. `client` - React frontend. The code is mounted from the repository `client/` directory.
 2. `server` - NestJS backend. Volume mounted from `server/`.
