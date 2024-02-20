@@ -8,7 +8,8 @@ This should create 3 containers:
 
 1. `client` - React frontend. The code is mounted from the repository `client/` directory.
 2. `server` - NestJS backend. Volume mounted from `server/`.
-3. `mongodb` - MongoDB image from dockerhub.
+3. `mongodb` - MongoDB image.
+4. `redis` - Redis image.
 
 Each service has its own Dockerfile within their respective directories.
 
@@ -92,3 +93,13 @@ The logging framework hasn't been injected everywhere and only the surface level
 I didn't focus on authentication and users (preventing access to API's based on tokens) and preventing unauthorized access to the backend.
 
 Additionally, with users we can tie events to users allowing them to see events that they are allowed to see. End-users can only see their own events while administrators can see all events, etc...
+
+## Testing
+
+Not sure how to approach testing, I'm not familiar with TDD in react/nest so writing out the test suite was a little slower than I wished. 
+
+## Better Project Setup and Environment
+
+There is a better docker-compose setup that would allow the project to function better. As it stands, there isn't a real `.env` setup or config manager that would make running the services less reliant on hardcoded inputs. 
+
+Additionally another docker service to spin up a nginx reverse proxy to sit in front of our services to help routing requests from the client to the server. 
