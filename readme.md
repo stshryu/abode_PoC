@@ -35,7 +35,7 @@ The Nest backend comes with a basic CRUD API for our events. We use MongoDB as w
 
 `get:/events` - Fetches all the events (expired and upcoming). Returns: `<Event[]>`
 
-`get:/events/:startDate/:endDate - Fetches all events occuring within the given timeframe. Returns: `<Event[]>`
+`get:/events/:startDate/:endDate` - Fetches all events occuring within the given timeframe. Returns: `<Event[]>`
 
 `post:/events` - Adds a new event based on the `@Body()` parameters. A `class-validations` DTO makes sure that the body received is a valid Event object before committing it into the database. The expected body is shown below:
 
