@@ -108,39 +108,3 @@ In doing so you should see the different events populate on the frontend.
 Running `npm run test` should run some tests on the service while injecting in a testing repository that abstracts away the data layer. The testing suite isn't fully realized. When completed, we should be able to write tests that use our `testing.event.repository` interface to test our methods.
 
 For example, when we mock our service to test our controller we will instead inject `testing.event.repository` in addition to a new file `testing.event.service` in order to mock everything down to the data layer.
-
-# Improvements
-
-## Event changes
-
-Decoupling data from MongoDB commits using messaging queues would allow for greater resiliency in the code. We can re-attempt failed jobs or even have a notification service setup that sends an email or SMS notification if a job fails. There's a small demo in this project about the queues (decoupling toggling the notified flag in MongoDB) but more logic could be added to not only listen for failed jobs but also to completely decouple the commits to the DB from our services.
-
-Also, after submitting I realized that my `server/src/event/event.notify.ts` file is importing the `event.respository.ts` which is the incorrect pattern to utilize. Implementing to an interface suggests we should instead import `event.service.ts` in our `event.notify.ts` file in order to de-couple the services from the repository. For example, if we decide to add a PostgreSQL repository, and implement it and use that full time, the `event.service.ts` is incorrectly calling the old `event.repository.ts`. If we called the service instead we would not have this problem.
-
-## Migrating to the Cloud
-
-Decoupling all the moving parts in our nest server could add the benefit of potentially easing a transition to the cloud. Using AWS as an example, we can use SNS and SQS to manage our workers and split up the event creation process and event store process into separate workers. Using DBMS and other AWS tools would help move everything to a non-managed serverless solution (like DocumentDB) that will help costs for running as well as horizontal and vertical scaling.
-
-## Frontend Design Changes
-
-If I had more time I probably would have gone harder into nesting components. As it is the edit and event lists logic is a little bulky. Having an event component that then renders within our event lists and the edit events page might have been a better way to help clean up the project. There is some nesting and dynamic properties that renders two different versions of the event list (one to show upcoming, the other to show expired) but even more nesting could have happened.
-
-## Logging
-
-The logging framework hasn't been injected everywhere and only the surface level API requests get caught. Creating a production ready service requires more robust logging.
-
-## Auth and Users
-
-I didn't focus on authentication and users (preventing access to API's based on tokens) and preventing unauthorized access to the backend.
-
-Additionally, with users we can tie events to users allowing them to see events that they are allowed to see. End-users can only see their own events while administrators can see all events, etc...
-
-## Testing
-
-Not sure how to approach testing, I'm not familiar with TDD in react/nest so writing out the test suite was a little slower than I wished. 
-
-## Better Project Setup and Environment
-
-There is a better docker-compose setup that would allow the project to function better. As it stands, there isn't a real `.env` setup or config manager that would make running the services less reliant on hardcoded inputs. 
-
-Additionally another docker service to spin up a nginx reverse proxy to sit in front of our services to help routing requests from the client to the server. 
